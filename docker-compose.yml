@@ -1,15 +1,51 @@
-version: '3'
+version: "3.8"
+
 services:
-  tpfoyer:
-    image: salmasaidi/tpfoyer  # Replace with your actual image
-    ports:
-      - "8082:8082"  # Map to appropriate ports if necessary
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
     environment:
-      - ENV_VAR=value  # Define any environment variables needed
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  app-timesheet:
+    depends_on:
+      - mysqldb
+    image: salmasaidi/tpfoyer:latest # Use your specific app image
+    restart: on-failure
+    ports:
+      - 8089:8089
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    stdin_open: true
+    tty: true
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml # Ensure you have a prometheus.yml config file
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Customize the Grafana password as needed
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
   db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: tpfoyerdb
-    ports:
-      - "3306:3306"
+  grafana-storage:
