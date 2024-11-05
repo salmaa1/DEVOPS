@@ -2,6 +2,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import tn.esprit.tpfoyer.TpFoyerApplication;
 import tn.esprit.tpfoyer.repository.BlocRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = TpFoyerApplication.class)
 @TestMethodOrder(OrderAnnotation.class)
+@ActiveProfiles("test")
 public class BlocServiceImplTest {
     @Mock
     private BlocRepository blocRepository;
