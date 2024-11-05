@@ -16,10 +16,13 @@ pipeline {
             }
         }
 
-        stage("Quality") {
-        steps {
-        sh "mvn sonar:sonar"}
-        }
+         stage("Quality") {
+                    steps {
+                        withCredentials([string(credentialsId: 'SonarQubeToken', variable: 'SONAR_TOKEN')]) {
+                            sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                        }
+                    }
+                }
     }
     
     post {
