@@ -60,6 +60,13 @@ pipeline {
          }
        }
 
+          stage('Docker-Compose') {
+                   steps {
+                       echo 'Staet Backend + DB : ';
+                       sh 'docker compose up -d';
+                   }
+               }
+
     }
     
     post {
