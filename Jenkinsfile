@@ -12,7 +12,8 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 // Run Maven build command
-                sh 'mvn clean compile'
+                sh 'mvn clean install',
+                sh 'mvn compile'
             }
         }
 
