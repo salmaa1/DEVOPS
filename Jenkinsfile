@@ -48,6 +48,18 @@ pipeline {
             }
         }
 
+       stage('Push to DockerHub') {
+            steps {
+           script {
+             // Login to Docker Hub
+               sh 'docker login -u salmasaidi -p 40085840salma'
+               bat 'docker tag salma/tpfoyer:latest salmasaidi/tpfoyer'
+             // Push the image to Docker Hub
+             bat 'docker push salmasaidi/tpfoyer'
+           }
+         }
+       }
+
     }
     
     post {
