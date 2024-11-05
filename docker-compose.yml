@@ -1,0 +1,15 @@
+version: '3'
+services:
+  tpfoyer:
+    image: your-dockerhub-username/tp-foyer:5.0.0  # Replace with your actual image
+    ports:
+      - "8080:8080"  # Map to appropriate ports if necessary
+    environment:
+      - ENV_VAR=value  # Define any environment variables needed
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: tpfoyerdb
+    ports:
+      - "3306:3306"
