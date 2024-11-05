@@ -19,7 +19,7 @@ pipeline {
 
          stage("Quality") {
                     steps {
-                        withCredentials([string(credentialsId: 'SonarQubeToken', variable: 'SONAR_TOKEN')]) {
+                        withCredentials([string(credentialsId: 'SonarQubeToken1', variable: 'SONAR_TOKEN')]) {
                             sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
                         }
                     }
