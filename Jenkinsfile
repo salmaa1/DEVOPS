@@ -23,6 +23,13 @@ pipeline {
                         }
                     }
                 }
+
+          stage('JUnit / Mockito') {
+                     steps {
+                         // Run tests using Maven
+                         sh 'mvn test'
+                     }
+                 }
     }
     
     post {
