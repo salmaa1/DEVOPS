@@ -15,6 +15,11 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
+
+        stage("Quality") {
+        steps {
+        sh "mvn sonar:sonar"}
+        }
     }
     
     post {
