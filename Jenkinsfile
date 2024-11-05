@@ -31,6 +31,17 @@ pipeline {
                          sh 'mvn test'
                      }
                  }
+
+        stage("Clean- Package"){
+                 steps {
+                 sh "mvn clean package"}
+                 }
+
+                 stage("Nexus") {
+                 steps {
+                 sh "mvn deploy:deploy-file -DgroupId=tn.esprit -DartifactId=tp-foyer -Dversion=5.0.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://192.168.50.4:8081/repository/maven-releases/ -Dfile=target/tp-foyer.war -DskipTests"
+                 }
+                 }
     }
     
     post {
