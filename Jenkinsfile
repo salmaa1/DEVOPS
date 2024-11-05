@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage(' GIT ') {
+        stage('GIT') {
             steps {
                 // Clone the repository from Git
                 git url: 'https://github.com/salmaa1/DEVOPS.git', branch: 'master', credentialsId: 'salmaJenkins'
