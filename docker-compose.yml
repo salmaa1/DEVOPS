@@ -29,8 +29,14 @@ services:
       }'
     stdin_open: true
     tty: true
+    networks:
+      - app-network
 
-    
+
 
 volumes:
   db:
+
+networks:
+      app-network:
+        driver: bridge
