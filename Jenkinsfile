@@ -63,6 +63,7 @@ pipeline {
           stage('Docker-Compose') {
                    steps {
                        echo 'Staet Backend + DB : ';
+                       sh 'docker-compose down';
                        sh 'docker compose up -d';
                    }
                }
